@@ -1,5 +1,5 @@
-﻿using Business.Models;
-using Business.Services;
+﻿using Business.Services;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -17,38 +17,38 @@ namespace Antrikotik.Controllers
         }
 
         [HttpGet]
-        //[Route("get")]
+        [Route("get")]
         public IEnumerable<Menu> Get()
         {
             return service.Get();
         }
 
-        [HttpGet("{id}")]
-        //[Route("get/{id}")]
+        [HttpGet]
+        [Route("get/{id}")]
         public Menu GetOne(int id)
         {
             return service.GetOne(id);
         }
 
         [HttpPost]
-        //[Route("post")] 
-        public IEnumerable<Menu> Post([FromBody] Menu menuwka)
+        [Route("post")] 
+        public void Post([FromBody] Menu menuwka)
         {
-            return service.Post(menuwka);
+            service.Post(menuwka);
         }
 
-        [HttpPut("{id}")]
-        //[Route("put/{id}")]
-        public Menu Put(int id, [FromBody] Menu request)
+        [HttpPut]
+        [Route("put/{id}")]
+        public void Put(int id, [FromBody] Menu request)
         {
-            return service.Put(id,request);
+            service.Put(id,request);
         }
 
-        [HttpDelete("{id}")]
-        //[Route("delete/{id}")]
-        public Menu Delete(int id)
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public void Delete(int id)
         {
-            return service.Delete(id);
+            service.Delete(id);
         }
 
     }

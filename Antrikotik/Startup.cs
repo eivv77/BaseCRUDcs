@@ -1,9 +1,11 @@
 using Business.Service;
 using Business.Services;
+using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,13 @@ namespace Antrikotik
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //var x = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<AppDbContext>(options 
+                => options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection")
+                    )
+                );
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -36,7 +45,7 @@ namespace Antrikotik
             });
 
             #region BusinessServices
-            services.AddSingleton<IMenuService, MenuService>();
+            services.AddScoped<IMenuService, MenuService>();
             #endregion
 
         }

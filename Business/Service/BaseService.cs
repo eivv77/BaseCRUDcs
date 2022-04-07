@@ -1,5 +1,5 @@
 ﻿using Business.IService;
-using Business.Models;
+using DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,18 +30,17 @@ namespace Business.Service
         {
             return menu[id];
         }
-        public virtual IEnumerable<TModel> Post(TModel menuwka)
+        public virtual void Post(TModel menuwka)
         {
             menu.Add(menuwka);
-            return menu;
         }
-        public virtual TModel Put(int id, TModel request)
+        public virtual void Put(int id, TModel request)
         {
-            return menu[id];
+            //menu[id];
         }
-        public virtual TModel Delete(int id)
+        public virtual void Delete(int id)
         {
-            return menu[id];
+           //menu[id];
         }
     }
 }

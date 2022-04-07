@@ -17,10 +17,10 @@ namespace Business.IService
 
         public TModel GetOne(int id);
 
-        public IEnumerable<TModel> Post(TModel menuwka);
+        public void Post(TModel menuwka);
 
-        public TModel Put(int id, TModel request);
+        public void Put(int id, TModel request);
 
-        public TModel Delete(int id);
+        public void Delete(int id);
     }
 }
