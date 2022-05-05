@@ -1,5 +1,6 @@
 ﻿using Business.Services;
-using DataAccess.Models;
+using DataAccess.Entities;
+using DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -18,30 +19,30 @@ namespace Antrikotik.Controllers
 
         [HttpGet]
         [Route("get")]
-        public IEnumerable<Menu> Get()
+        public IEnumerable<MenuDTO> GetAll()
         {
-            return service.Get();
+            return service.GetAll();
         }
 
         [HttpGet]
         [Route("get/{id}")]
-        public Menu GetOne(int id)
+        public MenuDTO GetOne(int id)
         {
             return service.GetOne(id);
         }
 
         [HttpPost]
         [Route("post")] 
-        public void Post([FromBody] Menu menuwka)
+        public void Post([FromBody] MenuDTO MenuDTOwka)
         {
-            service.Post(menuwka);
+            service.Post(MenuDTOwka);
         }
 
         [HttpPut]
         [Route("put/{id}")]
-        public void Put(int id, [FromBody] Menu request)
+        public void Put([FromBody] MenuDTO request)
         {
-            service.Put(id,request);
+            service.Put(request);
         }
 
         [HttpDelete]

@@ -1,3 +1,5 @@
+using AutoMapper;
+using Business.Helper;
 using Business.Service;
 using Business.Services;
 using DataAccess;
@@ -11,10 +13,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Repo.IRepositories;
+using Repo.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace Antrikotik
 {
@@ -32,11 +37,18 @@ namespace Antrikotik
         {
             //var x = Configuration.GetConnectionString("DefaultConnection");
 
-            services.AddDbContext<AppDbContext>(options 
-                => options.UseNpgsql(
+            services.AddDbContext<AppDbContext>(
+                options => options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")
                     )
                 );
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MapperProfile());
+            });
+
+            services.AddSingleton(mappingConfig.CreateMapper());
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,8 +56,10 @@ namespace Antrikotik
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Antrikotik", Version = "v1" });
             });
 
+
             #region BusinessServices
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             #endregion
 
         }

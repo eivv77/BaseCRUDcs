@@ -10,16 +10,16 @@ namespace Business.IService
     {
 
     }
-    public interface IBaseService<TModel> : IBaseService
+    public interface IBaseService<TRqDTO, TEntity,TRsDTO> : IBaseService
     {
         
-        public IEnumerable<TModel> Get();
+        public IEnumerable<TRsDTO> GetAll();
 
-        public TModel GetOne(int id);
+        public TRsDTO GetOne(int id);
 
-        public void Post(TModel menuwka);
+        public void Post(TRqDTO menuwka);
 
-        public void Put(int id, TModel request);
+        public void Put(TRqDTO request);
 
         public void Delete(int id);
     }

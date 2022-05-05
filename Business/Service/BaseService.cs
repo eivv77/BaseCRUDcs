@@ -1,5 +1,7 @@
-﻿using Business.IService;
-using DataAccess.Models;
+﻿using AutoMapper;
+using Business.IService;
+using DataAccess.Entities;
+using Repo.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,38 +11,48 @@ using System.Threading.Tasks;
 
 namespace Business.Service
 {
-    public class BaseService
+    public class BaseService : IBaseService
     {
 
     }
-    public class BaseService<TModel> : BaseService
+    public class BaseService<TRqDTO, TEntity, TRsDTO> : BaseService, IBaseService<TRqDTO, TEntity, TRsDTO>
     {
-        protected List<TModel> menu;
+        protected readonly IRepository<TEntity> repository;
+        protected readonly IMapper mapper; 
 
-        public BaseService()
+        public BaseService(IRepository<TEntity> repository, IMapper mapper)
         {
-            menu = new List<TModel>();
+            this.repository = repository;
+            this.mapper = mapper;
         }
 
-        public virtual IEnumerable<TModel> Get()
+        public virtual IEnumerable<TRsDTO> GetAll()
         {
-            return menu;
+            var entity = repository.GetAll();
+            var result = mapper.Map<IEnumerable<TRsDTO>>(entity);
+
+            return result;
         }
-        public virtual TModel GetOne(int id)
+        public virtual TRsDTO GetOne(int id)
         {
-            return menu[id];
+            var entity = repository.GetOne(id);
+            var result = mapper.Map<TRsDTO>(entity);  
+
+            return result;
         }
-        public virtual void Post(TModel menuwka)
+        public virtual void Post(TRqDTO menuwka)
         {
-            menu.Add(menuwka);
+            var entity = mapper.Map<TEntity>(menuwka);
+            repository.Create(entity);
         }
-        public virtual void Put(int id, TModel request)
+        public virtual void Put(TRqDTO menuwka)
         {
-            //menu[id];
+            var entity = mapper.Map<TEntity>(menuwka);
+            repository.Update(entity);
         }
         public virtual void Delete(int id)
         {
-           //menu[id];
+            repository.Delete(id);
         }
     }
 }

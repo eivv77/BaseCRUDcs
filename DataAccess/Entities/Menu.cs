@@ -1,11 +1,9 @@
-﻿namespace DataAccess.Models
+﻿namespace DataAccess.Entities
 {
-    public class Menu
+    public class Menu : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
 
-        
     }
 }
