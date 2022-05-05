@@ -10,7 +10,7 @@ namespace DataAccess
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Menu> MENU { get; set; }
+        public DbSet<Menu> MENU1st { get; set; }
 
         public AppDbContext(DbContextOptions options) : base(options)
         {
