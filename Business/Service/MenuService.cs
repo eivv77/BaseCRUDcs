@@ -22,7 +22,7 @@ namespace Business.Service
 
         public override IEnumerable<Menu> Get()
         {
-            return appDb.MENU;
+            return appDb.MENU1st;
         }
 
         public override void Post(Menu menuwka)
@@ -34,7 +34,7 @@ namespace Business.Service
             }
             return null;*/
 
-            appDb.MENU.Add(menuwka);
+            appDb.MENU1st.Add(menuwka);
             appDb.SaveChanges();
 
 
@@ -49,8 +49,8 @@ namespace Business.Service
 
             return menuwka;*/
 
-            return appDb.MENU.Find(id);
-            appDb.SaveChanges();
+            return appDb.MENU1st.Find(id);
+
         }
         public override void Put(int id, Menu request)
         {
@@ -83,10 +83,10 @@ namespace Business.Service
 
             return menuwka;*/
 
-            var x = appDb.MENU.Find(id);
+            var x = appDb.MENU1st.Find(id);
 
-            appDb.MENU.Find(id);
-            appDb.MENU.Remove(x);
+            appDb.MENU1st.Find(id);
+            appDb.MENU1st.Remove(x);
 
             appDb.SaveChanges();
 
